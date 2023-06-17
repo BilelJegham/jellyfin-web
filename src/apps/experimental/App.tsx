@@ -7,7 +7,7 @@ import { toAsyncPageRoute } from 'components/router/AsyncRoute';
 import { toViewManagerPageRoute } from 'components/router/LegacyRoute';
 
 import AppLayout from './AppLayout';
-import { ASYNC_ADMIN_ROUTES, ASYNC_USER_ROUTES } from './routes/asyncRoutes';
+import { ASYNC_ADMIN_ROUTES, ASYNC_PUBLIC_ROUTES, ASYNC_USER_ROUTES } from './routes/asyncRoutes';
 import { LEGACY_ADMIN_ROUTES, LEGACY_PUBLIC_ROUTES, LEGACY_USER_ROUTES } from './routes/legacyRoutes';
 
 const ExperimentalApp = () => {
@@ -33,7 +33,7 @@ const ExperimentalApp = () => {
                 {/* Public routes */}
                 <Route element={<ConnectionRequired isUserRequired={false} />}>
                     <Route index element={<Navigate replace to='/home.html' />} />
-
+                    {ASYNC_PUBLIC_ROUTES.map(toAsyncPageRoute)}
                     {LEGACY_PUBLIC_ROUTES.map(toViewManagerPageRoute)}
                 </Route>
             </Route>

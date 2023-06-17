@@ -24,6 +24,7 @@ import { appRouter } from 'components/router/appRouter';
 
 import ListItemLink from './ListItemLink';
 import LibraryIcon from '../LibraryIcon';
+import { DownloadForOffline } from '@mui/icons-material';
 
 const MainDrawerContent = () => {
     const { api, user } = useApi();
@@ -77,6 +78,14 @@ const MainDrawerContent = () => {
                             <Favorite />
                         </ListItemIcon>
                         <ListItemText primary={globalize.translate('Favorites')} />
+                    </ListItemLink>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemLink to='/offlinemedias.html'>
+                        <ListItemIcon>
+                            <DownloadForOffline />
+                        </ListItemIcon>
+                        <ListItemText primary={globalize.translate('OfllineMedias')} />
                     </ListItemLink>
                 </ListItem>
             </List>

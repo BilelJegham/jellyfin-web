@@ -156,6 +156,12 @@ export function getCommands(options) {
             id: 'downloadall',
             icon: 'file_download'
         });
+
+        commands.push({
+            name: globalize.translate('OfflineSave'),
+            id: 'save-offline',
+            icon: 'download_for_offline'
+        });
     }
 
     if (item.CanDelete && options.deleteItem !== false) {
@@ -180,6 +186,12 @@ export function getCommands(options) {
             name: globalize.translate('Download'),
             id: 'download',
             icon: 'file_download'
+        });
+
+        commands.push({
+            name: globalize.translate('OfflineSave'),
+            id: 'save-offline',
+            icon: 'download_for_offline'
         });
 
         commands.push({
@@ -350,6 +362,19 @@ function executeCommand(item, id, options) {
                         items: [itemId],
                         serverId: serverId
                     }).then(getResolveFunction(resolve, id, true), getResolveFunction(resolve, id));
+                });
+                break;
+            case 'save-offline':
+                import('../scripts/offlineSave').then((fileDownloader) => {
+                    const downloadHref = apiClient.getItemDownloadUrl(itemId);
+                    fileDownloader.offlineSave(apiClient, [{
+                        url: downloadHref,
+                        itemId: itemId,
+                        serverId: serverId,
+                        title: item.Name,
+                        filename: item.Path.replace(/^.*[\\/]/, '')
+                    }]);
+                    getResolveFunction(getResolveFunction(resolve, id), id)();
                 });
                 break;
             case 'download':
